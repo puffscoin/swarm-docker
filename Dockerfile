@@ -1,6 +1,6 @@
 FROM golang:1.11-alpine as builder
 
-ARG VERSION=bfed28a42
+ARG VERSION=dae82f0985
 
 RUN apk add --update git gcc g++ linux-headers
 RUN mkdir -p $GOPATH/src/github.com/ethereum && \
