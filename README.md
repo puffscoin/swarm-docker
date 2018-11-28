@@ -24,20 +24,20 @@ All Swarm command line arguments are supported and can be sent as part of the CM
 
 ## Running a Swarm container from the command line
 
-    $ docker run -e PASSWORD=password123 -t ethdevops/swarm:latest -- \
+    $ docker run -e PASSWORD=password123 -t ethdevops/swarm:latest \
                               --debug \
                               --verbosity 4
 
 ## Running a Swarm container with custom ENS endpoint
 
-    $ docker run -e PASSWORD=password123 -t ethdevops/swarm:latest -- \
+    $ docker run -e PASSWORD=password123 -t ethdevops/swarm:latest \
                               --ens-api http://1.2.3.4:8545 \
                               --debug \
                               --verbosity 4
 
 ## Running a Swarm container with metrics enabled
 
-    $ docker run -e PASSWORD=password123 -t ethdevops/swarm:latest -- \
+    $ docker run -e PASSWORD=password123 -t ethdevops/swarm:latest \
                               --debug \
                               --metrics \
                               --metrics.influxdb.export \
@@ -50,7 +50,7 @@ All Swarm command line arguments are supported and can be sent as part of the CM
 
 ## Running a Swarm container with tracing and pprof server enabled
 
-    $ docker run -e PASSWORD=password123 -t ethdevops/swarm:latest -- \
+    $ docker run -e PASSWORD=password123 -t ethdevops/swarm:latest \
                               --debug \
                               --tracing \
                               --tracing.endpoint 127.0.0.1:6831 \
@@ -61,6 +61,6 @@ All Swarm command line arguments are supported and can be sent as part of the CM
 
 ## Running a Swarm container with custom data directory mounted from a volume
 
-    $ docker run -e DATADIR=/data -e PASSWORD=password123 -v /tmp/hostdata:/data -t ethdevops/swarm:latest -- \
+    $ docker run -e DATADIR=/data -e PASSWORD=password123 -v /tmp/hostdata:/data -t ethdevops/swarm:latest \
                               --debug \
                               --verbosity 4
