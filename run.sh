@@ -17,10 +17,19 @@ KEYFILE=`find $DATADIR | grep UTC | head -n 1` || true
 if [ ! -f "$KEYFILE" ]; then echo "Could not find nor generate a BZZ keyfile." && exit 1; else echo "Found keyfile $KEYFILE"; fi
 
 VERSION=`/swarm version`
-echo "Running Swarm:"
-echo $VERSION
 
 export BZZACCOUNT="`echo -n $KEYFILE | tail -c 40`" || true
 if [ "$BZZACCOUNT" == "" ]; then echo "Could not parse BZZACCOUNT from keyfile." && exit 1; fi
 
-exec /swarm --bzzaccount=$BZZACCOUNT --password /password --datadir $DATADIR $@ 2>&1
+BZZKEY=$(/swarm --bzzaccount=$BZZACCOUNT --password /password print-keys | grep bzzkey | cut -c 8-15)
+HOSTTAG="$POD_NAME-$BZZKEY"
+
+echo "Running Swarm:"
+echo "Hosttag: $HOSTTAG"
+echo "BzzAccount: $BZZACCOUNT"
+echo "Version: $VERSION"
+
+exec /swarm --bzzaccount=$BZZACCOUNT \
+            --metrics.influxdb.host.tag=$HOSTTAG \
+            --password=/password \
+            --datadir=$DATADIR $@ 2>&1
