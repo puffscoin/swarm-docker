@@ -14,13 +14,4 @@ RUN mkdir -p $GOPATH/src/github.com/ethereum && \
     go install -ldflags "-X main.gitCommit=${VERSION}" ./cmd/swarm && \
     go install -ldflags "-X main.gitCommit=${VERSION}" ./cmd/geth && \
     go install -ldflags "-X main.gitCommit=${VERSION}" ./cmd/swarm/swarm-smoke && \
-    cp $GOPATH/bin/swarm /swarm && cp $GOPATH/bin/geth /geth && cp $GOPATH/bin/swarm-smoke /swarm-smoke
-
-
-# Release image with the required binaries and scripts
-FROM alpine:3.8
-WORKDIR /
-COPY --from=builder /swarm /geth /swarm-smoke /
-ADD run.sh /run.sh
-ADD run-smoke.sh /run-smoke.sh
-ENTRYPOINT ["/run.sh"]
+    go install -ldflags "-X main.gitCommit=${VERSION}" ./cmd/swarm/global-store
