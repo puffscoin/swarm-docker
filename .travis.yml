@@ -1,0 +1,21 @@
+language: generic
+dist: xenial
+
+before_script:
+  - source .travis/gen-tag.sh
+
+script:
+  - .travis/build.sh
+
+deploy:
+  - provider: script
+    skip_cleanup: true
+    script: .travis/push.sh
+    on:
+      all_branches: true
+      condition: $TRAVIS_BRANCH =~ ^anton|rafael|fabio|janos|elad|ferenc|gluk256|louis|viktor$
+  - provider: script
+    skip_cleanup: true
+    script: .travis/push.sh
+    on:
+      tags: true
