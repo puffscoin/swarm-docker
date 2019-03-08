@@ -1,0 +1,51 @@
+smoke:
+  image:
+    repository: ethdevops/swarm-smoke
+    tag: edge
+  enabled: true
+  schedule: "* * * * *"
+  size: 3000
+  config:
+    swarmReplicas: 10
+
+swarm:
+  metricsEnabled: true
+  tracingEnabled: false
+  profilingEnabled: false
+  image:
+    repository: ethdevops/swarm
+    tag: elad
+  replicaCount: 10
+  podManagementPolicy: Parallel
+  config:
+    ens_api: http://mainnet-geth-geth.geth:8545
+    verbosity: 3
+    debug: true
+    maxpeers: 20
+    bzznetworkid: 3
+    storesize: 1000
+  secrets:
+    password: qwerty
+  persistence:
+    enabled: false
+  ingress:
+    domain: stg.swarm-gateways.net
+    enabled: true
+    tls:
+      enabled: true
+      acmeEnabled: false
+    annotations:
+      nginx.ingress.kubernetes.io/proxy-body-size: 50m
+      nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  resources:
+    requests:
+      memory: 256Mi
+      cpu: 0.1
+    limits:
+      memory: 512Gi
+      cpu: 0.4
+
+influxdb:
+  config:
+    meta:
+      logging_enabled: false
