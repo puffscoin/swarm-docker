@@ -1,6 +1,6 @@
 FROM golang:1.11-alpine as builder
 
-ARG VERSION=c942700
+ARG VERSION=44c1d61bd
 
 RUN apk add --update git gcc g++ linux-headers
 RUN mkdir -p $GOPATH/src/github.com/ethereum && \
@@ -14,6 +14,12 @@ RUN mkdir -p $GOPATH/src/github.com/ethereum && \
     go install -ldflags "-X main.gitCommit=${VERSION}" ./cmd/geth
 
 
+FROM alpine:3.8 as swarm
+WORKDIR /
+COPY --from=builder /go/bin/swarm /go/bin/geth /
+ADD run.sh /run.sh
+ENTRYPOINT ["/run.sh"]
+
 FROM alpine:3.8 as swarm-smoke
 WORKDIR /
 COPY --from=builder /go/bin/swarm-smoke /
@@ -24,9 +30,3 @@ FROM alpine:3.8 as swarm-global-store
 WORKDIR /
 COPY --from=builder /go/bin/global-store /
 ENTRYPOINT ["/global-store"]
-
-FROM alpine:3.8 as swarm
-WORKDIR /
-COPY --from=builder /go/bin/swarm /go/bin/geth /
-ADD run.sh /run.sh
-ENTRYPOINT ["/run.sh"]
