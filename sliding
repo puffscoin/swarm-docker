@@ -20,7 +20,7 @@ swarm:
   profilingEnabled: false
   image:
     repository: ethdevops/swarm
-    tag: elad
+    tag: edge
   replicaCount: 5
   podManagementPolicy: Parallel
   config:
@@ -31,7 +31,7 @@ swarm:
     bzznetworkid: 3
     storesize: 1000
     extraFlags:
-      - --store.cache.size=1000
+      - --store.cache.size=0
   secrets:
     password: qwerty
   persistence:
@@ -57,3 +57,15 @@ influxdb:
   config:
     meta:
       logging_enabled: false
+
+grafana:
+  default:
+    smoke:
+      url: https://raw.githubusercontent.com/ethersphere/grafana-dashboards/blob/sliding/smoke.json
+    ldbstore:
+      url: https://raw.githubusercontent.com/ethersphere/grafana-dashboards/master/ldbstore.json
+    swarm:
+      url: https://raw.githubusercontent.com/ethersphere/grafana-dashboards/master/swarm.json
+    upload-speed:
+      url: https://raw.githubusercontent.com/ethersphere/grafana-dashboards/master/upload-speed.json
+
