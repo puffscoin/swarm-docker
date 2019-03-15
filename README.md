@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/ethersphere/swarm-docker.svg?branch=master)](https://travis-ci.org/ethersphere/swarm-docker)
 
-`Dockerfile` for `swarm` used on https://swarm-gateways.net and https://open.swarm-gateways.net
+`Dockerfile` for `swarm` used on https://swarm-gateways.net
 
 ## Docker tags
 
