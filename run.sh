@@ -28,7 +28,6 @@ if [ -f "$DELETE_DATADIR_HOOK" ]; then
     mv $DATADIR/swarm/nodekey /nodekey || true
   fi
 
-  rm -rf $DATADIR/keystore
   rm -rf $DATADIR/swarm
 
   if [ -f "$KEEP_NODEKEY_HOOK" ]; then
@@ -37,6 +36,8 @@ if [ -f "$DELETE_DATADIR_HOOK" ]; then
     mv /nodekey $DATADIR/swarm/ || true
 
     rm $KEEP_NODEKEY_HOOK
+  else
+    rm -rf $DATADIR/keystore
   fi
 
   rm $DELETE_DATADIR_HOOK
