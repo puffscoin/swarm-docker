@@ -24,14 +24,18 @@ if [ -f "$DELETE_DATADIR_HOOK" ]; then
   KEEP_NODEKEY="$DATADIR/keep_nodekey"
 
   if [ -f "$KEEP_NODEKEY" ]; then
-    mv $DATADIR/swarm/nodekey /nodekey
+    # allow failures because bootnode does not have nodekey
+    mv $DATADIR/swarm/nodekey /nodekey || true
   fi
 
   rm -rf $DATADIR/*
 
   if [ -f "$KEEP_NODEKEY" ]; then
-    mkdir -p $DATADIR/swarm
-    mv /nodekey $DATADIR/swarm/
+    # allow failures because bootnode does not have nodekey
+    mkdir -p $DATADIR/swarm || true
+    mv /nodekey $DATADIR/swarm/ || true
+
+    rm $KEEP_NODEKEY
   fi
 fi
 
