@@ -16,6 +16,15 @@ if [ ! -f "$KEYFILE" ]; then echo "No keyfile found. Generating..." && /geth --d
 KEYFILE=`find $DATADIR | grep UTC | grep -v tmp | head -n 1` || true
 if [ ! -f "$KEYFILE" ]; then echo "Could not find nor generate a BZZ keyfile." && exit 1; else echo "Found keyfile $KEYFILE"; fi
 
+# if this file exists, we remove datadir on startup, only keeping the node key
+DELETE_DATADIR_HOOK="$DATADIR/delete_datadir"
+if [ -f "$DELETE_DATADIR_HOOK" ]; then
+  mv $DATADIR/swarm/nodekey /nodekey
+  rm -rf $DATADIR/swarm/*
+  mv /nodekey $DATADIR/swarm/
+  rm $DELETE_DATADIR_HOOK
+fi
+
 VERSION=`/swarm version`
 echo "Running Swarm:"
 echo $VERSION
