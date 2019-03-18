@@ -19,24 +19,27 @@ if [ ! -f "$KEYFILE" ]; then echo "Could not find nor generate a BZZ keyfile." &
 
 # if this file exists, we remove datadir on startup, only keeping the node key
 DELETE_DATADIR_HOOK="$DATADIR/delete_datadir"
-if [ -f "$DELETE_DATADIR_HOOK" ]; then
-  # if this file exists, we keep the nodekey
-  KEEP_NODEKEY="$DATADIR/keep_nodekey"
+# if this file exists, we keep the nodekey when deleting the datadir
+KEEP_NODEKEY_HOOK="$DATADIR/keep_nodekey"
 
-  if [ -f "$KEEP_NODEKEY" ]; then
+if [ -f "$DELETE_DATADIR_HOOK" ]; then
+  if [ -f "$KEEP_NODEKEY_HOOK" ]; then
     # allow failures because bootnode does not have nodekey
     mv $DATADIR/swarm/nodekey /nodekey || true
   fi
 
-  rm -rf $DATADIR/*
+  rm -rf $DATADIR/keystore
+  rm -rf $DATADIR/swarm
 
-  if [ -f "$KEEP_NODEKEY" ]; then
+  if [ -f "$KEEP_NODEKEY_HOOK" ]; then
     # allow failures because bootnode does not have nodekey
     mkdir -p $DATADIR/swarm || true
     mv /nodekey $DATADIR/swarm/ || true
 
-    rm $KEEP_NODEKEY
+    rm $KEEP_NODEKEY_HOOK
   fi
+
+  rm $DELETE_DATADIR_HOOK
 fi
 
 VERSION=`/swarm version`
