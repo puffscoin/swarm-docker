@@ -1,11 +1,12 @@
-FROM golang:1.11-alpine as builder
-
-ARG VERSION=44c1d61bd
+FROM golang:1.12-alpine as builder
 
 RUN apk add --update git gcc g++ linux-headers
+
+ARG VERSION
+
 RUN mkdir -p $GOPATH/src/github.com/ethereum && \
     cd $GOPATH/src/github.com/ethereum && \
-    git clone https://github.com/ethersphere/go-ethereum && \
+    git clone https://github.com/nonsense/go-ethereum && \
     cd $GOPATH/src/github.com/ethereum/go-ethereum && \
     git checkout ${VERSION} && \
     go install -ldflags "-X main.gitCommit=${VERSION}" ./cmd/swarm && \
