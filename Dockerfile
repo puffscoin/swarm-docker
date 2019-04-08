@@ -1,6 +1,6 @@
 FROM golang:1.11-alpine as builder
 
-ARG VERSION=31df1cfe682eb5b1679a310b31d2c92567653d76
+ARG VERSION=3d31d5fdb
 
 
 RUN apk add --update git gcc g++ linux-headers
