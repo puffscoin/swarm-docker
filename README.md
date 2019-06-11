@@ -33,7 +33,7 @@ All Swarm command line arguments are supported and can be sent as part of the CM
 ## Running a Swarm container with custom ENS endpoint
 
     $ docker run -e PASSWORD=password123 -t puffsdevops/swarm:latest \
-                              --ens-api http://1.2.3.4:8545 \
+                              --ens-api http://1.2.3.4:11363 \
                               --debug \
                               --verbosity 4
 
