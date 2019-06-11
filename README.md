@@ -1,8 +1,8 @@
-# Official Swarm Docker image
+# Swarm on PUFFScoin Docker image
 
-[![Build Status](https://travis-ci.org/ethersphere/swarm-docker.svg?branch=master)](https://travis-ci.org/ethersphere/swarm-docker)
 
-`Dockerfile` for `swarm` used on https://swarm-gateways.net
+
+`Dockerfile` for `swarm`
 
 ## Docker tags
 
@@ -12,8 +12,8 @@
 
 ## Environment variables
 
-* `PASSWORD` - *required* - Used to setup a sample Ethereum account in the data directory. If a data directory is mounted with a volume, the first Ethereum account from it is loaded, and Swarm will try to decrypt it non-interactively with `PASSWORD`
-* `DATADIR` - *optional* - Defaults to `/root/.ethereum`
+* `PASSWORD` - *required* - Used to setup a sample PUFFScoin account in the data directory. If a data directory is mounted with a volume, the first Ethereum account from it is loaded, and Swarm will try to decrypt it non-interactively with `PASSWORD`
+* `DATADIR` - *optional* - Defaults to `/root/.puffscoin`
 * `CONTAINER_NAME` - *optional* - Defaults to `localhost`, used as a prefix for measurements and log lines
 
 ## Swarm command line arguments
@@ -22,24 +22,24 @@ All Swarm command line arguments are supported and can be sent as part of the CM
 
 ## Pulling the image
 
-    $ docker pull ethdevops/swarm:latest
+    $ docker pull puffsdevops/swarm:latest
 
 ## Running a Swarm container from the command line
 
-    $ docker run -e PASSWORD=password123 -t ethdevops/swarm:latest \
+    $ docker run -e PASSWORD=password123 -t puffsdevops/swarm:latest \
                               --debug \
                               --verbosity 4
 
 ## Running a Swarm container with custom ENS endpoint
 
-    $ docker run -e PASSWORD=password123 -t ethdevops/swarm:latest \
+    $ docker run -e PASSWORD=password123 -t puffsdevops/swarm:latest \
                               --ens-api http://1.2.3.4:8545 \
                               --debug \
                               --verbosity 4
 
 ## Running a Swarm container with metrics enabled
 
-    $ docker run -e PASSWORD=password123 -t ethdevops/swarm:latest \
+    $ docker run -e PASSWORD=password123 -t puffsdevops/swarm:latest \
                               --debug \
                               --metrics \
                               --metrics.influxdb.export \
@@ -52,7 +52,7 @@ All Swarm command line arguments are supported and can be sent as part of the CM
 
 ## Running a Swarm container with tracing and pprof server enabled
 
-    $ docker run -e PASSWORD=password123 -t ethdevops/swarm:latest \
+    $ docker run -e PASSWORD=password123 -t puffsdevops/swarm:latest \
                               --debug \
                               --tracing \
                               --tracing.endpoint 127.0.0.1:6831 \
@@ -63,6 +63,6 @@ All Swarm command line arguments are supported and can be sent as part of the CM
 
 ## Running a Swarm container with custom data directory mounted from a volume
 
-    $ docker run -e DATADIR=/data -e PASSWORD=password123 -v /tmp/hostdata:/data -t ethdevops/swarm:latest \
+    $ docker run -e DATADIR=/data -e PASSWORD=password123 -v /tmp/hostdata:/data -t puffsdevops/swarm:latest \
                               --debug \
                               --verbosity 4
